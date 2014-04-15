@@ -22,7 +22,7 @@
 include_recipe "mysql::ruby"
 
 execute "populate MySQL Time Zone Tables" do
-  command %{mysql_tzinfo_to_sql /usr/share/zoneinfo | "#{Chef::Config[:solo] ? 'mysql' : node['mysql']['mysql_bin']}" mysql -u root #{node['mysql']['server_root_password'].empty? ? '' : "-p=#{node['mysql']['server_root_password']}" }}
+  command %{mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root #{node['mysql']['server_root_password'].empty? ? '' : "-p=#{node['mysql']['server_root_password']}" }}
   user "root"
   not_if do
     Gem.clear_paths
