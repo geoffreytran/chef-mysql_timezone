@@ -19,7 +19,11 @@
 # limitations under the License.
 #
 
-include_recipe "mysql::ruby"
+if Gem::Requirement.new("~> 11.0.0").satisfied_by?(Gem::Version.new(Chef::VERSION))
+  include_recipe "mysql_chef_gem"  
+else
+  include_recipe "mysql::ruby"
+end
 
 execute "populate MySQL Time Zone Tables" do
   command %{mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root #{node['mysql']['server_root_password'].empty? ? '' : "--password=#{node['mysql']['server_root_password']}" } mysql}
