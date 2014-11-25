@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-if Gem::Requirement.new("~> 11.0.0").satisfied_by?(Gem::Version.new(Chef::VERSION))
+if Gem::Requirement.new(">= 11.0.0").satisfied_by?(Gem::Version.new(Chef::VERSION))
   include_recipe "mysql_chef_gem"  
 else
   include_recipe "mysql::ruby"
